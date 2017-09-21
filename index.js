@@ -53,11 +53,12 @@ app.listen(3000,function(){
 
 app.post('/data',function(req,res){
     var q=req.body
+    var timeDiff=Math.abs(q.dateEnd.getTime()-q.dateCreated.getTime())
+    var diffDays=Math.ceil(timeDiff/(1000*3600*24))
 var user = new User({
-    company:{ 
-        companyName: q.companyName
-    },
-    product:[{
+    
+    companyName: q.companyName,
+    products:[{
         productName: q.productName,
         ticketId:    q.ticketId,
         status:      q.status,
@@ -67,15 +68,17 @@ var user = new User({
         dateModified:q.dateModified,
         dateEnd:     q.dateEnd,
         timeSpent:   q.timeSpent,
-        sla:         q.sla,
+        timeDuration:diffDays,
         category:    q.category,
         comment:     [{
             commentBy: q.commentBy,
-            comments: q.comments
+            comments: q.comments,
+            date: q.date
         }]
     }]    
 })
-   user.save(function(err,User){
+  
+   user.save(function(err){
        if(!err) 
        console.log("data is inserted in botDataBase")
        res.sendStatus(200)
