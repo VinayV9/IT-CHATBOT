@@ -13,22 +13,57 @@
             <input type="text" ng-model='message' placeholder="enter Text" >
             <button type="submit">SEND</button>
         </form>
-        <div>
-            {{$scope.message}}
-        </div>
        </div> 
+
+       <div>
+        <form ng-controller="dataSetCtrl" ng-submit="submit()">
+            <input type="number" ng-model='ticketId' placeholder="ticketId" >
+            <input type="boolean" ng-model='status' placeholder="status">
+            <input type="text" ng-model='companyName' placeholder="companyName">
+            <input type="text" ng-model='productName' placeholder="productName">
+            <input type="date" ng-model='dateCreated' placeholder="dateCreated">
+            <input type="date" ng-model='dateModified' placeholder="dateModified">
+            <input type="date" ng-model='dateEnd' placeholder="dateEnd">
+            <input type="text" ng-model='category' placeholder="category">
+            <input type="number" ng-model='timeSpent' placeholder="timeSpent">
+            <input type="text" ng-model='commentBy' placeholder="commentBy">
+            <input type="text" ng-model='comments' placeholder="comments">
+            <input type="number" ng-model='sla' placeholder="sla"> 
+            <button type="submit">SEND</button>
+        </form>
+       </div>
     <script>
         var app=angular.module('bot', []);
 
         app.controller('messageCtrl',  function($scope, $http){
-   
-        $scope.submit=function(){
-            var data={};
-            data.message=$scope.message
-            $http.post('/data', data);
-            $scope.message='';
-        }
-});
+            $scope.submit=function(){
+                var data={};
+                data.message=$scope.message
+                $http.post('/message', data);
+                $scope.message='';
+            }
+       });
+       app.controller('dataSetCtrl', function($scope, $http){
+           $scope.submit=function(){
+               var data={};
+               var q=$scope;
+               
+                data.companyName= q.companyName;
+                data.productName= q.productName;
+                data.ticketId=   q.ticketId;
+                data.status=     q.status;
+                data.dateCreated= q.dateCreated;
+                data.dateModified=q.dateModified;
+                data.dateEnd=     q.dateEnd;
+                data.timeSpent=   q.timeSpent;
+                data.sla=       q.sla;
+                data.category=    q.category;
+                data.commentBy= q.commentBy;
+                data.comments= q.comments;
+            
+               $http.post('/data', data);
+           }
+        });
     
     </script>
     
