@@ -10,7 +10,7 @@ var data =db.Schema({
         negCount:    {type:Number},
         dateCreated: {type: Date},
         dateModified: {type: Date},
-        dateClosed: {type: Date},
+        dateEnd: {type: Date},
         timeSpent:   {type: Number},
         timeDuration:{type:Number},
         category:    {type: String},
