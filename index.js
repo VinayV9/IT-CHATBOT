@@ -7,7 +7,7 @@ var mongoose=require('mongoose')
 var watson=require('watson-developer-cloud')
 var request=require('request')
 var User=require('./model/schema')
-
+var dateTime=require('node-datetime')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -53,7 +53,10 @@ app.listen(3000,function(){
 
 app.post('/data',function(req,res){
     var q=req.body
-    var timeDiff=Math.abs(q.dateEnd.getTime()-q.dateCreated.getTime())
+    console.log(q.dateCreated);
+    var de=dateTime.create(q.dateEnd);
+    var dc=dateTime.create(q.dateCreated);
+    var timeDiff=Math.abs(de.getTime()-dc.getTime());
     var diffDays=Math.ceil(timeDiff/(1000*3600*24))
 var user = new User({
     
@@ -77,7 +80,7 @@ var user = new User({
         }]
     }]    
 })
-  
+  console.log("hello");
    user.save(function(err){
        if(!err) 
        console.log("data is inserted in botDataBase")
