@@ -28,7 +28,6 @@
             <input type="number" ng-model='timeSpent' placeholder="timeSpent">
             <input type="text" ng-model='commentBy' placeholder="commentBy">
             <input type="text" ng-model='comments' placeholder="comments">
-            <input type="number" ng-model='sla' placeholder="sla"> 
             <button type="submit">SEND</button>
         </form>
        </div>
@@ -56,11 +55,9 @@
                 data.dateModified=q.dateModified;
                 data.dateEnd=     q.dateEnd;
                 data.timeSpent=   q.timeSpent;
-                data.sla=       q.sla;
                 data.category=    q.category;
                 data.commentBy= q.commentBy;
                 data.comments= q.comments;
-            
                $http.post('/data', data);
            }
         });
